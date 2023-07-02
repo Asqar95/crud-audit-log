@@ -10,7 +10,6 @@ FROM alpine:latest AS runner
 
 COPY --from=builder /app/bin/app/ .
 COPY --from=builder /app/.env .
-COPY --from=builder /app/configs ./configs
 
-EXPOSE 8080
+EXPOSE 9000
 CMD ["./app"]

@@ -1,19 +1,52 @@
-version: '3.8'
-services:
+version: '3.1'
 
-#  app:
-#     build: ./
-#     ports:
-#       - 8008:8080
-#     depends_on:
-#      - mongodb
-
-  mongodb:
-   image: mongo
-   ports:
-     - 27017:27017
-   volumes:
-     - dbdata:/data/db
+networks:
+  audit-log:
+    driver: bridge
 
 volumes:
   dbdata:
+
+services:
+  app:
+     build: ./
+     ports:
+       - 9000:9000
+     networks:
+       - audit-log
+     environment:
+       DB_URI: mongodb://admin:qwerty123@mongo:27017/audit?authSource=admin
+       DB_USERNAME: admin
+       DB_PASSWORD: qwerty123
+       DB_DATABASE: audit
+       SERVER_PORT: 9000
+     depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - audit-log
+    volumes:
+      - dbdata:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: qwerty123
+      MONGO_INITDB_DATABASE: audit
+
+  mongo-express:
+      image: mongo-express
+      restart: always
+      ports:
+        - 8081:8081
+      networks:
+        - audit-log
+      depends_on:
+        - mongo
+      environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+        ME_CONFIG_MONGODB_ADMINPASSWORD: qwerty123
+        ME_CONFIG_MONGODB_URL: mongodb://admin:qwerty123@mongo:27017/audit?authSource=admin
