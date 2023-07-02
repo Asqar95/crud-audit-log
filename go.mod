@@ -1,4 +1,4 @@
-module github.com/Asqar95/crud-audit-log.git
+module github.com/Asqar95/crud-audit-log
 
 go 1.20
 

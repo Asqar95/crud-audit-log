@@ -2,7 +2,7 @@ package server
 
 import (
 	"context"
-	audit "github.com/Asqar95/crud-audit-log.git/pkg/domain"
+	audit "github.com/Asqar95/crud-audit-log/pkg/domain"
 )
 
 type AuditService interface {
