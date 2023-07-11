@@ -33,9 +33,14 @@ services:
     volumes:
       - dbdata:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: qwerty123
-      MONGO_INITDB_DATABASE: audit
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=audit
+      - MONGO_INITDB_USER=audit
+      - MONGO_INITDB_PWD=audit
+#      MONGO_INITDB_ROOT_USERNAME: admin
+#      MONGO_INITDB_ROOT_PASSWORD: qwerty123
+#      MONGO_INITDB_DATABASE: audit
 
   mongo-express:
       image: mongo-express

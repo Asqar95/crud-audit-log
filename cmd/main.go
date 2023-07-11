@@ -19,6 +19,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	fmt.Println(cfg)
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -45,7 +47,7 @@ func main() {
 	auditSrv := server.NewAuditServer(auditService)
 	srv := server.New(auditSrv)
 
-	fmt.Println("SERVER STARTED", time.Now())
+	fmt.Println("SERVER STARTED", time.Now(), cfg.Server.Port)
 
 	if err := srv.ListenAndServe(cfg.Server.Port); err != nil {
 		log.Fatal(err)

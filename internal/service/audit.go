@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 	audit "github.com/Asqar95/crud-audit-log/pkg/domain"
-	"strconv"
 )
 
 type Repository interface {
@@ -24,7 +23,7 @@ func (s *Audit) Insert(ctx context.Context, req *audit.LogRequest) error {
 	item := audit.LogItem{
 		Action:    req.GetAction().String(),
 		Entity:    req.GetEntity().String(),
-		EntityID:  strconv.FormatInt(req.GetEntityId(), 10),
+		EntityID:  req.GetEntityId(),
 		Timestamp: req.GetTimestamp().AsTime(),
 	}
 
